@@ -1,0 +1,39 @@
+# Invoice Processing Agent - Requirements
+# Python 3.10+ required
+# External dependency: Tesseract OCR binary (install via brew/apt/download)
+
+# Core dependencies
+numpy==1.26.4
+
+# Document processing
+pdfplumber>=0.11.0
+python-docx>=1.1.0
+Pillow>=10.0.0
+reportlab>=4.0.0
+matplotlib>=3.8.0
+
+# OCR (requires external Tesseract binary)
+pytesseract>=0.3.10
+
+# LangChain and RAG components
+langchain==0.3.1
+langchain-core==0.3.6
+langchain-community==0.3.1
+langchain-ollama==0.2.0
+
+# Vector store
+faiss-cpu>=1.8.0
+
+# Utilities
+beautifulsoup4==4.12.3
+ipywidgets>=8.1.0
+pydantic==2.9.2
+
+# Note: This notebook also requires:
+# 1. Ollama (https://ollama.ai) with models:
+#    - ollama pull gemma3:270m
+#    - ollama pull nomic-embed-text
+# 2. Tesseract OCR binary:
+#    - macOS: brew install tesseract
+#    - Linux: sudo apt-get install tesseract-ocr
+#    - Windows: https://github.com/UB-Mannheim/tesseract/wiki
