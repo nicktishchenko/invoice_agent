@@ -2,7 +2,95 @@
 
 **Project:** Demo_Invoice_Processing_Agent.ipynb  
 **Location:** /Users/nikolay_tishchenko/Projects/codeium/invoice_agent/  
-**Last Updated:** November 2, 2025 - 09:15 UTC
+**Last Updated:** November 2, 2025 - 13:28 UTC
+
+---
+
+## Major Refactoring - Complete Notebook Self-Containment
+
+**Date:** November 2, 2025 - 11:52 to 13:28 UTC
+
+### Objective: Make Notebook Completely Portable and Independent
+
+**Problem Identified:**
+- Notebook depended on external `invoice_agent_pipeline.py` module
+- Three Phase cells imported classes from external module
+- Notebook could not run independently on different systems
+- External dependency created maintenance burden
+
+### Solution Implemented: Embed All Pipeline Classes
+
+**Changes Made:**
+
+1. **Extracted All Pipeline Classes** (860 lines)
+   - `ContractRelationshipDiscoverer` (~140 lines)
+   - `PerContractRuleExtractor` (~100 lines)
+   - `InvoiceLinkageDetector` (~180 lines)
+   - `InvoiceParser` (~250 lines)
+
+2. **Created New Embedded Classes Cell** (Cell 7)
+   - Inserted after configuration cell
+   - Contains complete definitions of all 4 pipeline classes
+   - ~32KB of inline code
+   - Marked with "DEFINE PIPELINE CLASSES INLINE" header
+
+3. **Updated Phase Cells** (Removed external imports)
+   - **Phase A (Cell 9):** Removed `from invoice_agent_pipeline import ContractRelationshipDiscoverer`
+   - **Phase B (Cell 11):** Removed `from invoice_agent_pipeline import PerContractRuleExtractor`
+   - **Phase C (Cell 13):** Removed `importlib.reload()` and module imports for `InvoiceLinkageDetector`, `InvoiceParser`
+   - Added comments indicating classes are defined in notebook above
+
+### Results
+
+**Notebook Structure (After Refactoring):**
+- Total cells: 67 (increased from 66)
+- Cell 7: New embedded pipeline classes
+- All Phase cells: Updated to use embedded classes
+- No external module dependencies
+
+**Git Changes:**
+- Commit: f06b103
+- Files changed: 1 (Demo_Invoice_Processing_Agent.ipynb)
+- Lines added: 1416
+- Lines removed: 550
+- Status: `working tree clean`
+
+**Verification Checklist:**
+- ✅ All 4 classes successfully embedded in notebook
+- ✅ All external imports removed from Phase cells
+- ✅ Notebook can now run independently
+- ✅ Changes committed to git with clear message
+- ✅ File size: 370K (updated Nov 2, 13:28)
+- ✅ No unsaved changes
+
+### Key Benefits
+
+1. **Portability:** Notebook runs anywhere without external dependencies
+2. **Maintainability:** All code in one file, easier to understand flow
+3. **Distribution:** Can share notebook without requiring module files
+4. **Version Control:** Complete state captured in single git commit
+5. **Reliability:** No import path issues or module load failures
+
+### Technical Approach
+
+**Challenge:** Initial attempt using `edit_notebook_file` tool failed
+- Tool only modifies VS Code editor memory
+- Changes didn't persist to disk
+- Git tracking showed no modifications
+
+**Solution:** Direct Python JSON manipulation
+- Read notebook JSON structure
+- Inserted new cell with embedded classes at correct position
+- Updated Phase cells to remove imports
+- Directly saved modified JSON to disk
+- Changes immediately visible in git
+
+### Backward Compatibility
+
+- External `invoice_agent_pipeline.py` remains available
+- Can still be used as standalone module if needed
+- Notebook no longer depends on it
+- Existing code using module unaffected
 
 ---
 
