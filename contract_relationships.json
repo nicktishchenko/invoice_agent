@@ -1,0 +1,201 @@
+{
+  "discovery_timestamp": "2025-11-02T11:17:46.541620",
+  "contracts_dir": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts",
+  "total_documents": 7,
+  "contracts": [
+    {
+      "contract_id": "BAYER_UNKNOWN_1",
+      "parties": [
+        "BAYER"
+      ],
+      "program_code": "UNKNOWN",
+      "dates_found": [],
+      "documents": [
+        {
+          "filename": "Bayer_CLMS_-_Action_required_Contract_JP0094.pdf",
+          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/Bayer_CLMS_-_Action_required_Contract_JP0094.pdf",
+          "type": "OTHER",
+          "parties": [
+            "BAYER"
+          ],
+          "program_code": null,
+          "dates": {
+            "found": [],
+            "range": null
+          }
+        }
+      ],
+      "hierarchy": {
+        "msa": null,
+        "sow": null,
+        "order_forms": [],
+        "purchase_orders": [],
+        "delivery_notes": []
+      },
+      "inconsistencies": []
+    },
+    {
+      "contract_id": "BAYER_R4_UNKNOWN_2",
+      "parties": [
+        "BAYER",
+        "R4"
+      ],
+      "program_code": "UNKNOWN",
+      "dates_found": [
+        "2021",
+        "2021-12-10"
+      ],
+      "documents": [
+        {
+          "filename": "Brief for r4_1018.docx",
+          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/Brief for r4_1018.docx",
+          "type": "OTHER",
+          "parties": [
+            "BAYER",
+            "R4"
+          ],
+          "program_code": null,
+          "dates": {
+            "found": [],
+            "range": null
+          }
+        },
+        {
+          "filename": "r4 MSA for BCH CAP 2021 12 10.docx",
+          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/r4 MSA for BCH CAP 2021 12 10.docx",
+          "type": "MSA",
+          "parties": [
+            "BAYER",
+            "R4"
+          ],
+          "program_code": null,
+          "dates": {
+            "found": [
+              "2021-12-10",
+              "2021"
+            ],
+            "range": null
+          }
+        },
+        {
+          "filename": "r4 SOW for BCH CAP 2021 12 10.docx",
+          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/r4 SOW for BCH CAP 2021 12 10.docx",
+          "type": "SOW",
+          "parties": [
+            "BAYER",
+            "R4"
+          ],
+          "program_code": null,
+          "dates": {
+            "found": [
+              "2021-12-10",
+              "2021"
+            ],
+            "range": null
+          }
+        }
+      ],
+      "hierarchy": {
+        "msa": "r4 MSA for BCH CAP 2021 12 10.docx",
+        "sow": "r4 SOW for BCH CAP 2021 12 10.docx",
+        "order_forms": [],
+        "purchase_orders": [],
+        "delivery_notes": []
+      },
+      "inconsistencies": []
+    },
+    {
+      "contract_id": "_UNKNOWN_3",
+      "parties": [],
+      "program_code": "UNKNOWN",
+      "dates_found": [],
+      "documents": [
+        {
+          "filename": "Purchase Order No. 2151002393.pdf",
+          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/Purchase Order No. 2151002393.pdf",
+          "type": "PURCHASE_ORDER",
+          "parties": [],
+          "program_code": null,
+          "dates": {
+            "found": [],
+            "range": null
+          }
+        }
+      ],
+      "hierarchy": {
+        "msa": null,
+        "sow": null,
+        "order_forms": [],
+        "purchase_orders": [
+          "Purchase Order No. 2151002393.pdf"
+        ],
+        "delivery_notes": []
+      },
+      "inconsistencies": [
+        {
+          "severity": "warning",
+          "issue": "Purchase Order exists without MSA or SOW",
+          "recommendation": "Verify this is a PO-based contract"
+        }
+      ]
+    },
+    {
+      "contract_id": "R4_BCH_4",
+      "parties": [
+        "R4"
+      ],
+      "program_code": "BCH",
+      "dates_found": [
+        "2021",
+        "2021-12-10",
+        "2022",
+        "2022-11-01"
+      ],
+      "documents": [
+        {
+          "filename": "r4 Order Form for BCH CAP 2021 12 10.docx",
+          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/r4 Order Form for BCH CAP 2021 12 10.docx",
+          "type": "ORDER_FORM",
+          "parties": [
+            "R4"
+          ],
+          "program_code": "BCH",
+          "dates": {
+            "found": [
+              "2021-12-10",
+              "2021"
+            ],
+            "range": null
+          }
+        },
+        {
+          "filename": "r4 Order Form for BCH CAP 2022 11 01.docx",
+          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/r4 Order Form for BCH CAP 2022 11 01.docx",
+          "type": "ORDER_FORM",
+          "parties": [
+            "R4"
+          ],
+          "program_code": "BCH",
+          "dates": {
+            "found": [
+              "2022-11-01",
+              "2022"
+            ],
+            "range": null
+          }
+        }
+      ],
+      "hierarchy": {
+        "msa": null,
+        "sow": null,
+        "order_forms": [
+          "r4 Order Form for BCH CAP 2021 12 10.docx",
+          "r4 Order Form for BCH CAP 2022 11 01.docx"
+        ],
+        "purchase_orders": [],
+        "delivery_notes": []
+      },
+      "inconsistencies": []
+    }
+  ]
+}

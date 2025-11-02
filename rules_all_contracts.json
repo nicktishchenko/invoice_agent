@@ -1,0 +1,410 @@
+{
+  "contracts": [
+    {
+      "contract_id": "BAYER_UNKNOWN_1",
+      "parties": [
+        "BAYER"
+      ],
+      "program_code": "UNKNOWN",
+      "source_documents": [
+        "Bayer_CLMS_-_Action_required_Contract_JP0094.pdf"
+      ],
+      "extraction_timestamp": "2025-11-02T11:17:55.386633",
+      "rules": [
+        {
+          "rule_id": "payment_terms",
+          "type": "payment_term",
+          "description": "The payment terms are:\n\n*   **Net days:** 30 days from the receipt of the invoice issued in accordance with the Agreement.\n*   **PO requirements:**  The invoice must be sent to BAYER or its Affiliate, as applicable.\n*   **Payment terms:**  BAYER shall pay invoiced amounts within 30 days of the invoice issued in accordance with the Agreement, except for any disputed amounts.",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "approval_process",
+          "type": "approval",
+          "description": "The invoice approval process is a process where a party (BAYER) issues a PO with a unique number of invoices, and the other party (R4) confirms the invoice's validity and the amount due.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "submission_requirements",
+          "type": "submission",
+          "description": "Invoice processing rules are:\n*   Invoices must include a copy of the original receipt or invoice from the third party to r4 and, if the Services are being charged on a time and materials basis, copies of the relevant timesheets.\n*   BAYER shall issue a PO with a unique POnumberaswellasstatingtheaddressto\n    These are:\n    *   Applicable PO number\n    *    Agreed payment term\n    *   Source document",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "dispute_resolution",
+          "type": "dispute",
+          "description": "The dispute resolution process is to settle the agreement by the competent courts of the country in which Bayer is incorporated.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "tax_handling",
+          "type": "tax",
+          "description": "The invoice processing rules are as follows:\n\n*   **Taxation:** Payee pays the withholding tax separately.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "currency_requirements",
+          "type": "currency",
+          "description": "The currency requirements are specified as:\n\n*   **Currency:** USD\n*   **Currency Code:** (e.g., EUR)",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "invoice_format",
+          "type": "format",
+          "description": "Invoice format: PO/SOW or OrderForm\nKey details:\n*   PO number\n*   Agreement number\n*   Payment term\n*   Source document title(s)\n*   Name of requester(s)\n*   Provided Services\n*   Correct address of the Service Provider, which is mentioned on the respective PO.",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "supporting_documents",
+          "type": "documents",
+          "description": "The required supporting documents are:\n*   A paper copy of any record provided or made available\n*   An e-mail to alexander.gossrau@bayer.com\n*   A receipt for the electronic signing system\n*   A copy of the electronic signing system\n*   A copy of the electronic signing system\n*   A copy of the electronic signing system",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "delivery_terms",
+          "type": "delivery",
+          "description": "1.  The agreement will begin upon signature and/or an equivalent local act under Applicable Laws by both Parties.\n2.  The agreement will automatically renew for successive periods of 12 months unless terminated by one of the parties with 3.00 months' priorwrittennoticetotheendof the initial period or any successive period.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "warranty_terms",
+          "type": "warranty",
+          "description": "The contract specifies that the agreement will provide services in a good and workmanlike manner, but it does not specify any warranties or guarantees.",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "rejection_criteria",
+          "type": "rejection",
+          "description": "Invoice rejection criteria are:\n*   **Time and Materials Basis:** The invoice must be issued in accordance with the agreed-upon time and materials basis.\n*   **Copies of Relevant Timesheets:** The invoice must include copies of the relevant timesheets.\n*   **Specific PO Number:** The invoice must be issued to the correct PO number.\n*   ** Agreed Payment Term:** The invoice must be paid in accordance with the agreed-upon payment term.\n*   **Source",
+          "priority": "high",
+          "confidence": "medium"
+        }
+      ],
+      "inconsistencies": [],
+      "hierarchy": {
+        "msa": null,
+        "sow": null,
+        "order_forms": [],
+        "purchase_orders": [],
+        "delivery_notes": []
+      }
+    },
+    {
+      "contract_id": "BAYER_R4_UNKNOWN_2",
+      "parties": [
+        "BAYER",
+        "R4"
+      ],
+      "program_code": "UNKNOWN",
+      "source_documents": [
+        "Brief for r4_1018.docx",
+        "r4 MSA for BCH CAP 2021 12 10.docx",
+        "r4 SOW for BCH CAP 2021 12 10.docx"
+      ],
+      "extraction_timestamp": "2025-11-02T11:17:55.387747",
+      "rules": [
+        {
+          "rule_id": "payment_terms",
+          "type": "payment_term",
+          "description": "The payment terms are:\n\n*   **Net days:** 30 days from the receipt of the invoice issued in accordance with the Agreement.\n*   **PO requirements:**  The invoice must be sent to BAYER or its Affiliate, as applicable.\n*   **Payment terms:**  BAYER shall pay invoiced amounts within 30 days of the invoice issued in accordance with the Agreement, except for any disputed amounts.",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "approval_process",
+          "type": "approval",
+          "description": "The invoice approval process is a process where a party (BAYER) issues a PO with a unique number of invoices, and the other party (R4) confirms the invoice's validity and the amount due.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "submission_requirements",
+          "type": "submission",
+          "description": "Invoice processing rules are:\n*   Invoices must include a copy of the original receipt or invoice from the third party to r4 and, if the Services are being charged on a time and materials basis, copies of the relevant timesheets.\n*   BAYER shall issue a PO with a unique POnumberaswellasstatingtheaddressto\n    These are:\n    *   Applicable PO number\n    *    Agreed payment term\n    *   Source document",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "dispute_resolution",
+          "type": "dispute",
+          "description": "The dispute resolution process is to settle the agreement by the competent courts of the country in which Bayer is incorporated.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "tax_handling",
+          "type": "tax",
+          "description": "The invoice processing rules are as follows:\n\n*   **Taxation:** Payee pays the withholding tax separately.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "currency_requirements",
+          "type": "currency",
+          "description": "The currency requirements are specified as:\n\n*   **Currency:** USD\n*   **Currency Code:** (e.g., EUR)",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "invoice_format",
+          "type": "format",
+          "description": "Invoice format: PO/SOW or OrderForm\nKey details:\n*   PO number\n*   Agreement number\n*   Payment term\n*   Source document title(s)\n*   Name of requester(s)\n*   Provided Services\n*   Correct address of the Service Provider, which is mentioned on the respective PO.",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "supporting_documents",
+          "type": "documents",
+          "description": "The required supporting documents are:\n*   A paper copy of any record provided or made available\n*   An e-mail to alexander.gossrau@bayer.com\n*   A receipt for the electronic signing system\n*   A copy of the electronic signing system\n*   A copy of the electronic signing system\n*   A copy of the electronic signing system",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "delivery_terms",
+          "type": "delivery",
+          "description": "1.  The agreement will begin upon signature and/or an equivalent local act under Applicable Laws by both Parties.\n2.  The agreement will automatically renew for successive periods of 12 months unless terminated by one of the parties with 3.00 months' priorwrittennoticetotheendof the initial period or any successive period.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "warranty_terms",
+          "type": "warranty",
+          "description": "The contract specifies that the agreement will provide services in a good and workmanlike manner, but it does not specify any warranties or guarantees.",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "rejection_criteria",
+          "type": "rejection",
+          "description": "Invoice rejection criteria are:\n*   **Time and Materials Basis:** The invoice must be issued in accordance with the agreed-upon time and materials basis.\n*   **Copies of Relevant Timesheets:** The invoice must include copies of the relevant timesheets.\n*   **Specific PO Number:** The invoice must be issued to the correct PO number.\n*   ** Agreed Payment Term:** The invoice must be paid in accordance with the agreed-upon payment term.\n*   **Source",
+          "priority": "high",
+          "confidence": "medium"
+        }
+      ],
+      "inconsistencies": [],
+      "hierarchy": {
+        "msa": "r4 MSA for BCH CAP 2021 12 10.docx",
+        "sow": "r4 SOW for BCH CAP 2021 12 10.docx",
+        "order_forms": [],
+        "purchase_orders": [],
+        "delivery_notes": []
+      }
+    },
+    {
+      "contract_id": "_UNKNOWN_3",
+      "parties": [],
+      "program_code": "UNKNOWN",
+      "source_documents": [
+        "Purchase Order No. 2151002393.pdf"
+      ],
+      "extraction_timestamp": "2025-11-02T11:17:55.388561",
+      "rules": [
+        {
+          "rule_id": "payment_terms",
+          "type": "payment_term",
+          "description": "The payment terms are:\n\n*   **Net days:** 30 days from the receipt of the invoice issued in accordance with the Agreement.\n*   **PO requirements:**  The invoice must be sent to BAYER or its Affiliate, as applicable.\n*   **Payment terms:**  BAYER shall pay invoiced amounts within 30 days of the invoice issued in accordance with the Agreement, except for any disputed amounts.",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "approval_process",
+          "type": "approval",
+          "description": "The invoice approval process is a process where a party (BAYER) issues a PO with a unique number of invoices, and the other party (R4) confirms the invoice's validity and the amount due.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "submission_requirements",
+          "type": "submission",
+          "description": "Invoice processing rules are:\n*   Invoices must include a copy of the original receipt or invoice from the third party to r4 and, if the Services are being charged on a time and materials basis, copies of the relevant timesheets.\n*   BAYER shall issue a PO with a unique POnumberaswellasstatingtheaddressto\n    These are:\n    *   Applicable PO number\n    *    Agreed payment term\n    *   Source document",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "dispute_resolution",
+          "type": "dispute",
+          "description": "The dispute resolution process is to settle the agreement by the competent courts of the country in which Bayer is incorporated.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "tax_handling",
+          "type": "tax",
+          "description": "The invoice processing rules are as follows:\n\n*   **Taxation:** Payee pays the withholding tax separately.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "currency_requirements",
+          "type": "currency",
+          "description": "The currency requirements are specified as:\n\n*   **Currency:** USD\n*   **Currency Code:** (e.g., EUR)",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "invoice_format",
+          "type": "format",
+          "description": "Invoice format: PO/SOW or OrderForm\nKey details:\n*   PO number\n*   Agreement number\n*   Payment term\n*   Source document title(s)\n*   Name of requester(s)\n*   Provided Services\n*   Correct address of the Service Provider, which is mentioned on the respective PO.",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "supporting_documents",
+          "type": "documents",
+          "description": "The required supporting documents are:\n*   A paper copy of any record provided or made available\n*   An e-mail to alexander.gossrau@bayer.com\n*   A receipt for the electronic signing system\n*   A copy of the electronic signing system\n*   A copy of the electronic signing system\n*   A copy of the electronic signing system",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "delivery_terms",
+          "type": "delivery",
+          "description": "1.  The agreement will begin upon signature and/or an equivalent local act under Applicable Laws by both Parties.\n2.  The agreement will automatically renew for successive periods of 12 months unless terminated by one of the parties with 3.00 months' priorwrittennoticetotheendof the initial period or any successive period.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "warranty_terms",
+          "type": "warranty",
+          "description": "The contract specifies that the agreement will provide services in a good and workmanlike manner, but it does not specify any warranties or guarantees.",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "rejection_criteria",
+          "type": "rejection",
+          "description": "Invoice rejection criteria are:\n*   **Time and Materials Basis:** The invoice must be issued in accordance with the agreed-upon time and materials basis.\n*   **Copies of Relevant Timesheets:** The invoice must include copies of the relevant timesheets.\n*   **Specific PO Number:** The invoice must be issued to the correct PO number.\n*   ** Agreed Payment Term:** The invoice must be paid in accordance with the agreed-upon payment term.\n*   **Source",
+          "priority": "high",
+          "confidence": "medium"
+        }
+      ],
+      "inconsistencies": [
+        {
+          "severity": "warning",
+          "issue": "Purchase Order exists without MSA or SOW",
+          "recommendation": "Verify this is a PO-based contract"
+        }
+      ],
+      "hierarchy": {
+        "msa": null,
+        "sow": null,
+        "order_forms": [],
+        "purchase_orders": [
+          "Purchase Order No. 2151002393.pdf"
+        ],
+        "delivery_notes": []
+      }
+    },
+    {
+      "contract_id": "R4_BCH_4",
+      "parties": [
+        "R4"
+      ],
+      "program_code": "BCH",
+      "source_documents": [
+        "r4 Order Form for BCH CAP 2021 12 10.docx",
+        "r4 Order Form for BCH CAP 2022 11 01.docx"
+      ],
+      "extraction_timestamp": "2025-11-02T11:17:55.389896",
+      "rules": [
+        {
+          "rule_id": "payment_terms",
+          "type": "payment_term",
+          "description": "The payment terms are:\n\n*   **Net days:** 30 days from the receipt of the invoice issued in accordance with the Agreement.\n*   **PO requirements:**  The invoice must be sent to BAYER or its Affiliate, as applicable.\n*   **Payment terms:**  BAYER shall pay invoiced amounts within 30 days of the invoice issued in accordance with the Agreement, except for any disputed amounts.",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "approval_process",
+          "type": "approval",
+          "description": "The invoice approval process is a process where a party (BAYER) issues a PO with a unique number of invoices, and the other party (R4) confirms the invoice's validity and the amount due.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "submission_requirements",
+          "type": "submission",
+          "description": "Invoice processing rules are:\n*   Invoices must include a copy of the original receipt or invoice from the third party to r4 and, if the Services are being charged on a time and materials basis, copies of the relevant timesheets.\n*   BAYER shall issue a PO with a unique POnumberaswellasstatingtheaddressto\n    These are:\n    *   Applicable PO number\n    *    Agreed payment term\n    *   Source document",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "dispute_resolution",
+          "type": "dispute",
+          "description": "The dispute resolution process is to settle the agreement by the competent courts of the country in which Bayer is incorporated.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "tax_handling",
+          "type": "tax",
+          "description": "The invoice processing rules are as follows:\n\n*   **Taxation:** Payee pays the withholding tax separately.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "currency_requirements",
+          "type": "currency",
+          "description": "The currency requirements are specified as:\n\n*   **Currency:** USD\n*   **Currency Code:** (e.g., EUR)",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "invoice_format",
+          "type": "format",
+          "description": "Invoice format: PO/SOW or OrderForm\nKey details:\n*   PO number\n*   Agreement number\n*   Payment term\n*   Source document title(s)\n*   Name of requester(s)\n*   Provided Services\n*   Correct address of the Service Provider, which is mentioned on the respective PO.",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "supporting_documents",
+          "type": "documents",
+          "description": "The required supporting documents are:\n*   A paper copy of any record provided or made available\n*   An e-mail to alexander.gossrau@bayer.com\n*   A receipt for the electronic signing system\n*   A copy of the electronic signing system\n*   A copy of the electronic signing system\n*   A copy of the electronic signing system",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "delivery_terms",
+          "type": "delivery",
+          "description": "1.  The agreement will begin upon signature and/or an equivalent local act under Applicable Laws by both Parties.\n2.  The agreement will automatically renew for successive periods of 12 months unless terminated by one of the parties with 3.00 months' priorwrittennoticetotheendof the initial period or any successive period.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "warranty_terms",
+          "type": "warranty",
+          "description": "The contract specifies that the agreement will provide services in a good and workmanlike manner, but it does not specify any warranties or guarantees.",
+          "priority": "low",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "rejection_criteria",
+          "type": "rejection",
+          "description": "Invoice rejection criteria are:\n*   **Time and Materials Basis:** The invoice must be issued in accordance with the agreed-upon time and materials basis.\n*   **Copies of Relevant Timesheets:** The invoice must include copies of the relevant timesheets.\n*   **Specific PO Number:** The invoice must be issued to the correct PO number.\n*   ** Agreed Payment Term:** The invoice must be paid in accordance with the agreed-upon payment term.\n*   **Source",
+          "priority": "high",
+          "confidence": "medium"
+        }
+      ],
+      "inconsistencies": [],
+      "hierarchy": {
+        "msa": null,
+        "sow": null,
+        "order_forms": [
+          "r4 Order Form for BCH CAP 2021 12 10.docx",
+          "r4 Order Form for BCH CAP 2022 11 01.docx"
+        ],
+        "purchase_orders": [],
+        "delivery_notes": []
+      }
+    }
+  ],
+  "extraction_timestamp": "2025-11-02T11:17:55.390657"
+}

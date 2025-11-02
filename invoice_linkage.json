@@ -1,0 +1,202 @@
+{
+  "detection_timestamp": "2025-11-02T11:43:52.992481",
+  "total_invoices": 12,
+  "matched": 6,
+  "ambiguous": 5,
+  "unmatched": 1,
+  "invoices": [
+    {
+      "invoice_id": "INV-001",
+      "detected_contract": "_UNKNOWN_3",
+      "match_method": "PO_NUMBER",
+      "confidence": 0.95,
+      "matching_details": {
+        "po_number": "2151002393",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-11-01",
+        "amount": 15000.0
+      },
+      "alternative_matches": [],
+      "status": "MATCHED"
+    },
+    {
+      "invoice_id": "INV-002",
+      "detected_contract": "BAYER_R4_UNKNOWN_2",
+      "match_method": "VENDOR",
+      "confidence": 0.85,
+      "matching_details": {
+        "po_number": "BCH-CAP-2021-001",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-10-15",
+        "amount": 25000.0
+      },
+      "alternative_matches": [
+        {
+          "contract_id": "R4_BCH_4",
+          "method": "VENDOR",
+          "confidence": 0.85
+        }
+      ],
+      "status": "AMBIGUOUS"
+    },
+    {
+      "invoice_id": "INV-003",
+      "detected_contract": null,
+      "match_method": null,
+      "confidence": 0.0,
+      "matching_details": {},
+      "alternative_matches": [],
+      "status": "UNMATCHED"
+    },
+    {
+      "invoice_id": "INV-004",
+      "detected_contract": "_UNKNOWN_3",
+      "match_method": "PO_NUMBER",
+      "confidence": 0.95,
+      "matching_details": {
+        "po_number": "2151002393",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-11-01",
+        "amount": 15000.0
+      },
+      "alternative_matches": [],
+      "status": "MATCHED"
+    },
+    {
+      "invoice_id": "INV-005",
+      "detected_contract": "_UNKNOWN_3",
+      "match_method": "PO_NUMBER",
+      "confidence": 0.95,
+      "matching_details": {
+        "po_number": "2151002393",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-11-01",
+        "amount": 15000.0
+      },
+      "alternative_matches": [],
+      "status": "MATCHED"
+    },
+    {
+      "invoice_id": "INV-006",
+      "detected_contract": "BAYER_R4_UNKNOWN_2",
+      "match_method": "VENDOR",
+      "confidence": 0.85,
+      "matching_details": {
+        "po_number": "BCH-CAP-2021-001",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-10-20",
+        "amount": 8500.0
+      },
+      "alternative_matches": [
+        {
+          "contract_id": "R4_BCH_4",
+          "method": "VENDOR",
+          "confidence": 0.85
+        }
+      ],
+      "status": "AMBIGUOUS"
+    },
+    {
+      "invoice_id": "INV-007",
+      "detected_contract": "_UNKNOWN_3",
+      "match_method": "PO_NUMBER",
+      "confidence": 0.95,
+      "matching_details": {
+        "po_number": "2151002393",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-11-01",
+        "amount": 35000.0
+      },
+      "alternative_matches": [],
+      "status": "MATCHED"
+    },
+    {
+      "invoice_id": "INV-008",
+      "detected_contract": "_UNKNOWN_3",
+      "match_method": "PO_NUMBER",
+      "confidence": 0.95,
+      "matching_details": {
+        "po_number": "2151002393",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-08-15",
+        "amount": 12000.0
+      },
+      "alternative_matches": [],
+      "status": "MATCHED"
+    },
+    {
+      "invoice_id": "INV-009",
+      "detected_contract": "BAYER_R4_UNKNOWN_2",
+      "match_method": "VENDOR",
+      "confidence": 0.85,
+      "matching_details": {
+        "po_number": "PO-UNKNOWN",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-11-01",
+        "amount": 5500.0
+      },
+      "alternative_matches": [
+        {
+          "contract_id": "R4_BCH_4",
+          "method": "VENDOR",
+          "confidence": 0.85
+        }
+      ],
+      "status": "AMBIGUOUS"
+    },
+    {
+      "invoice_id": "INV-010",
+      "detected_contract": "_UNKNOWN_3",
+      "match_method": "PO_NUMBER",
+      "confidence": 0.95,
+      "matching_details": {
+        "po_number": "2151002393",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-11-01",
+        "amount": 15000.0
+      },
+      "alternative_matches": [],
+      "status": "MATCHED"
+    },
+    {
+      "invoice_id": "INV-011",
+      "detected_contract": "BAYER_R4_UNKNOWN_2",
+      "match_method": "VENDOR",
+      "confidence": 0.85,
+      "matching_details": {
+        "po_number": "BCH-CAP-2021-001",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-11-01",
+        "amount": 10000.0
+      },
+      "alternative_matches": [
+        {
+          "contract_id": "R4_BCH_4",
+          "method": "VENDOR",
+          "confidence": 0.85
+        }
+      ],
+      "status": "AMBIGUOUS"
+    },
+    {
+      "invoice_id": "INV-012",
+      "detected_contract": "BAYER_R4_UNKNOWN_2",
+      "match_method": "VENDOR",
+      "confidence": 0.85,
+      "matching_details": {
+        "po_number": "BCH-CAP-2022-001",
+        "vendor": "R4 Services Inc.",
+        "invoice_date": "2025-10-01",
+        "amount": 50000.0
+      },
+      "alternative_matches": [
+        {
+          "contract_id": "R4_BCH_4",
+          "method": "VENDOR",
+          "confidence": 0.85
+        }
+      ],
+      "status": "AMBIGUOUS"
+    }
+  ]
+}
