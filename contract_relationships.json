@@ -1,10 +1,67 @@
 {
-  "discovery_timestamp": "2025-11-02T16:17:23.156772",
+  "discovery_timestamp": "2025-11-04T12:39:05.316014",
   "contracts_dir": "demo_contracts",
-  "total_documents": 7,
+  "total_documents": 8,
   "contracts": [
     {
-      "contract_id": "BAYER_UNKNOWN_1",
+      "contract_id": "_UNKNOWN_1",
+      "parties": [],
+      "program_code": "UNKNOWN",
+      "dates_found": [],
+      "documents": [
+        {
+          "filename": ".DS_Store",
+          "filepath": "demo_contracts/.DS_Store",
+          "type": "OTHER",
+          "parties": [],
+          "program_code": null,
+          "dates": {
+            "found": [],
+            "range": null
+          }
+        },
+        {
+          "filename": "Purchase Order No. 2151002393.pdf",
+          "filepath": "demo_contracts/Purchase Order No. 2151002393.pdf",
+          "type": "PURCHASE_ORDER",
+          "parties": [],
+          "program_code": null,
+          "dates": {
+            "found": [],
+            "range": null
+          }
+        },
+        {
+          "filename": "~$ief for r4_1018.docx",
+          "filepath": "demo_contracts/~$ief for r4_1018.docx",
+          "type": "OTHER",
+          "parties": [],
+          "program_code": null,
+          "dates": {
+            "found": [],
+            "range": null
+          }
+        }
+      ],
+      "hierarchy": {
+        "msa": null,
+        "sow": null,
+        "order_forms": [],
+        "purchase_orders": [
+          "Purchase Order No. 2151002393.pdf"
+        ],
+        "delivery_notes": []
+      },
+      "inconsistencies": [
+        {
+          "severity": "warning",
+          "issue": "Purchase Order exists without MSA or SOW",
+          "recommendation": "Verify this is a PO-based contract"
+        }
+      ]
+    },
+    {
+      "contract_id": "BAYER_UNKNOWN_2",
       "parties": [
         "BAYER"
       ],
@@ -35,7 +92,7 @@
       "inconsistencies": []
     },
     {
-      "contract_id": "BAYER_R4_UNKNOWN_2",
+      "contract_id": "BAYER_R4_UNKNOWN_3",
       "parties": [
         "BAYER",
         "R4"
@@ -46,20 +103,6 @@
         "2021-12-10"
       ],
       "documents": [
-        {
-          "filename": "Brief for r4_1018.docx",
-          "filepath": "demo_contracts/Brief for r4_1018.docx",
-          "type": "OTHER",
-          "parties": [
-            "BAYER",
-            "R4"
-          ],
-          "program_code": null,
-          "dates": {
-            "found": [],
-            "range": null
-          }
-        },
         {
           "filename": "r4 MSA for BCH CAP 2021 12 10.docx",
           "filepath": "demo_contracts/r4 MSA for BCH CAP 2021 12 10.docx",
@@ -103,41 +146,6 @@
         "delivery_notes": []
       },
       "inconsistencies": []
-    },
-    {
-      "contract_id": "_UNKNOWN_3",
-      "parties": [],
-      "program_code": "UNKNOWN",
-      "dates_found": [],
-      "documents": [
-        {
-          "filename": "Purchase Order No. 2151002393.pdf",
-          "filepath": "demo_contracts/Purchase Order No. 2151002393.pdf",
-          "type": "PURCHASE_ORDER",
-          "parties": [],
-          "program_code": null,
-          "dates": {
-            "found": [],
-            "range": null
-          }
-        }
-      ],
-      "hierarchy": {
-        "msa": null,
-        "sow": null,
-        "order_forms": [],
-        "purchase_orders": [
-          "Purchase Order No. 2151002393.pdf"
-        ],
-        "delivery_notes": []
-      },
-      "inconsistencies": [
-        {
-          "severity": "warning",
-          "issue": "Purchase Order exists without MSA or SOW",
-          "recommendation": "Verify this is a PO-based contract"
-        }
-      ]
     },
     {
       "contract_id": "R4_BCH_4",
