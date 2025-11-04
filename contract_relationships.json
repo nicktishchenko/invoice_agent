@@ -1,6 +1,6 @@
 {
-  "discovery_timestamp": "2025-11-02T11:17:46.541620",
-  "contracts_dir": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts",
+  "discovery_timestamp": "2025-11-02T16:17:23.156772",
+  "contracts_dir": "demo_contracts",
   "total_documents": 7,
   "contracts": [
     {
@@ -13,7 +13,7 @@
       "documents": [
         {
           "filename": "Bayer_CLMS_-_Action_required_Contract_JP0094.pdf",
-          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/Bayer_CLMS_-_Action_required_Contract_JP0094.pdf",
+          "filepath": "demo_contracts/Bayer_CLMS_-_Action_required_Contract_JP0094.pdf",
           "type": "OTHER",
           "parties": [
             "BAYER"
@@ -48,7 +48,7 @@
       "documents": [
         {
           "filename": "Brief for r4_1018.docx",
-          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/Brief for r4_1018.docx",
+          "filepath": "demo_contracts/Brief for r4_1018.docx",
           "type": "OTHER",
           "parties": [
             "BAYER",
@@ -62,7 +62,7 @@
         },
         {
           "filename": "r4 MSA for BCH CAP 2021 12 10.docx",
-          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/r4 MSA for BCH CAP 2021 12 10.docx",
+          "filepath": "demo_contracts/r4 MSA for BCH CAP 2021 12 10.docx",
           "type": "MSA",
           "parties": [
             "BAYER",
@@ -79,7 +79,7 @@
         },
         {
           "filename": "r4 SOW for BCH CAP 2021 12 10.docx",
-          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/r4 SOW for BCH CAP 2021 12 10.docx",
+          "filepath": "demo_contracts/r4 SOW for BCH CAP 2021 12 10.docx",
           "type": "SOW",
           "parties": [
             "BAYER",
@@ -112,7 +112,7 @@
       "documents": [
         {
           "filename": "Purchase Order No. 2151002393.pdf",
-          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/Purchase Order No. 2151002393.pdf",
+          "filepath": "demo_contracts/Purchase Order No. 2151002393.pdf",
           "type": "PURCHASE_ORDER",
           "parties": [],
           "program_code": null,
@@ -154,7 +154,7 @@
       "documents": [
         {
           "filename": "r4 Order Form for BCH CAP 2021 12 10.docx",
-          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/r4 Order Form for BCH CAP 2021 12 10.docx",
+          "filepath": "demo_contracts/r4 Order Form for BCH CAP 2021 12 10.docx",
           "type": "ORDER_FORM",
           "parties": [
             "R4"
@@ -170,7 +170,7 @@
         },
         {
           "filename": "r4 Order Form for BCH CAP 2022 11 01.docx",
-          "filepath": "/Users/nikolay_tishchenko/Projects/codeium/invoice_agent/demo_contracts/r4 Order Form for BCH CAP 2022 11 01.docx",
+          "filepath": "demo_contracts/r4 Order Form for BCH CAP 2022 11 01.docx",
           "type": "ORDER_FORM",
           "parties": [
             "R4"

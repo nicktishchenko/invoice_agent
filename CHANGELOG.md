@@ -491,12 +491,244 @@ This enhancement provides:
 
 ---
 
-## Next Steps
+---
 
-1. Consolidate duplicate cells (optional)
-2. Test full pipeline end-to-end
-3. Validate invoice processing against real contracts
-4. Generate sample reports
+## Phase 2: Contract/Invoice Preprocessing & Grouping
+
+**Time:** November 3, 2025 - 12:37 UTC  
+**Status:** PLANNING  
+**Objective:** Find and group all files related to specific contracts to extract key information for rule extraction and invoice matching
+
+### Context
+- Different parts of agreements (MSA, SOW, PO, Delivery Notes) can be in separate files or combined
+- Some documents may be addendums or annexes to main agreements
+- System must handle both service-based and goods-based contracts
+- Need to identify contract type to determine which documents are mandatory
+
+### Contract Type Classification
+
+#### Service-Based Contracts (Document Chain: MSA → SOW → PO → Invoice)
+**Scenarios:**
+- Large corporate project: ✓ MSA, ✓ SOW, ✓ PO, ✓ Invoice
+- Fixed-price one-time: ✓ MSA, ✗ SOW, ✓ PO, ✓ Invoice
+- Retainer/ongoing: ✓ MSA, ✓ SOW, ✗ PO, ✓ Invoice
+- Small ad-hoc: ✓ MSA, ✗ SOW, ✗ PO, ✓ Invoice
+
+#### Goods-Based Contracts (Document Chain: PO → Delivery Note → Invoice)
+**Scenarios:**
+- Product/goods sale: ⚠ Supply Agreement (optional), ✓ PO, ✓ Delivery Note, ✓ Invoice
+- Recurring supply: ✓ Supply Agreement, ✓ PO, ✓ Delivery Note, ✓ Invoice
+
+### Phase 2 Implementation Plan
+
+#### Step 1: Document Type Detection
+**Goal:** Identify document type from filename and content
+
+**Detection Strategy:**
+- **MSA (Master Services Agreement):** Keywords in filename/content: "MSA", "Master Services", "Agreement"
+- **SOW (Statement of Work):** Keywords: "SOW", "Statement of Work", "Scope", "Deliverables"
+- **PO (Purchase Order):** Keywords: "PO", "Purchase Order", "Order Form"
+- **Delivery Note:** Keywords: "Delivery", "DN", "Delivery Note", "Shipment", "Receipt"
+- **Invoice:** Keywords: "Invoice", "INV", "Bill", "Statement"
+- **Supply Agreement:** Keywords: "Supply", "Supply Agreement", "SA"
+
+**Implementation:**
+```
+For each file in demo_contracts/:
+  1. Extract filename
+  2. Extract first 500 chars of content
+  3. Apply keyword matching (case-insensitive)
+  4. Classify as: MSA, SOW, PO, Delivery Note, Invoice, Supply Agreement, or Unknown
+  5. Store classification with confidence score
+```
+
+#### Step 2: Contract Grouping by Vendor/Party
+**Goal:** Group related documents by vendor/party names
+
+**Grouping Strategy:**
+- Extract party names (vendor, supplier, buyer) from each document
+- Use fuzzy matching to handle name variations (e.g., "r4 Technologies" vs "r4 Tech")
+- Group documents with matching parties
+- Create contract groups: {vendor_name: [doc1, doc2, ...]}
+
+**Implementation:**
+```
+For each document:
+  1. Extract party names (vendor, supplier, buyer, client)
+  2. Normalize names (lowercase, remove special chars)
+  3. Create fuzzy match key
+  4. Group by key
+
+Result: {
+  "r4_technologies": [MSA, SOW, PO, Invoice],
+  "bayer_consumer_health": [Contract, PO],
+  ...
+}
+```
+
+#### Step 3: Document Relationship Mapping
+**Goal:** Link related documents (e.g., Invoice references PO)
+
+**Relationship Types:**
+- **MSA → SOW:** SOW references MSA ID
+- **SOW → PO:** PO references SOW ID
+- **PO → Delivery Note:** DN references PO ID
+- **PO → Invoice:** Invoice references PO ID
+- **Delivery Note → Invoice:** Invoice references DN ID
+
+**Implementation:**
+```
+For each document:
+  1. Extract reference IDs (MSA-ID, SOW-ID, PO-ID, DN-ID, INV-ID)
+  2. Search for matching documents by ID
+  3. Create relationship map: {doc_id: [referenced_docs]}
+
+Result: {
+  "MSA-2025-001": {
+    "type": "MSA",
+    "references": [],
+    "referenced_by": ["SOW-2025-003", "PO-2025-1567"]
+  },
+  "SOW-2025-003": {
+    "type": "SOW",
+    "references": ["MSA-2025-001"],
+    "referenced_by": ["PO-2025-1567", "INV-2025-0901"]
+  },
+  ...
+}
+```
+
+#### Step 4: Contract Type Determination
+**Goal:** Identify contract type (service vs goods) to determine mandatory documents
+
+**Detection Logic:**
+```
+For each contract group:
+  1. Analyze document types present
+  2. Check for service keywords: "services", "deliverables", "milestones", "SOW"
+  3. Check for goods keywords: "units", "quantity", "delivered", "goods", "products"
+  4. Classify as: SERVICE-BASED or GOODS-BASED
+  5. Determine mandatory documents based on type
+```
+
+**Validation Rules:**
+- **Service-based:** Must have MSA + Invoice; SOW/PO optional based on scenario
+- **Goods-based:** Must have PO + Invoice; Delivery Note required; Supply Agreement optional
+
+#### Step 5: Mandatory Document Validation
+**Goal:** Verify all required documents are present
+
+**Validation Matrix:**
+```
+For each contract group:
+  1. Determine contract type (service vs goods)
+  2. Check mandatory documents:
+     - Service: ✓ MSA, ✓ Invoice, ⚠ SOW (conditional), ⚠ PO (conditional)
+     - Goods: ✓ PO, ✓ Invoice, ✓ Delivery Note, ⚠ Supply Agreement (optional)
+  3. Flag missing mandatory documents
+  4. Generate validation report
+```
+
+**Output:**
+```
+{
+  "contract_group": "r4_technologies",
+  "type": "SERVICE-BASED",
+  "documents": {
+    "MSA": "r4 MSA for BCH CAP 2021 12 10.docx",
+    "SOW": "r4 SOW for BCH CAP 2021 12 10.docx",
+    "PO": "Purchase Order No. 2151002393.pdf",
+    "Invoice": "MISSING"
+  },
+  "mandatory_check": {
+    "MSA": "✓ FOUND",
+    "SOW": "✓ FOUND",
+    "PO": "⚠ OPTIONAL (found)",
+    "Invoice": "✗ MISSING (required)"
+  },
+  "status": "INCOMPLETE - Missing Invoice"
+}
+```
+
+#### Step 6: Metadata Extraction
+**Goal:** Extract key metadata from grouped documents
+
+**Metadata to Extract:**
+- **From MSA:** Effective date, parties, payment terms, dispute resolution
+- **From SOW:** Scope, deliverables, milestones, pricing
+- **From PO:** PO number, date, items, quantities, unit prices, total value
+- **From Delivery Note:** DN number, date, quantity delivered, receiver signature
+- **From Invoice:** Invoice number, date, amount, vendor, references
+
+**Implementation:**
+```
+For each document group:
+  1. Extract metadata from each document type
+  2. Consolidate into unified contract record
+  3. Create cross-references (e.g., Invoice.PO_ref → PO.number)
+  4. Store in structured format (JSON)
+```
+
+### Deliverables for Phase 2
+
+1. **Contract Grouping Report**
+   - List of all contract groups
+   - Documents in each group
+   - Contract type classification
+   - Mandatory document validation
+
+2. **Document Classification Database**
+   - File path → Document type mapping
+   - Confidence scores
+   - Extracted metadata
+
+3. **Contract Metadata JSON**
+   - Unified contract records
+   - Document relationships
+   - Extracted key information
+   - Validation status
+
+4. **Missing Documents Report**
+   - Contracts with missing mandatory documents
+   - Recommendations for action
+
+### Implementation Approach
+
+**Phase 2a: Document Type Detection (Cell 1-2)**
+- Implement document type classifier
+- Test on demo_contracts/ files
+- Generate classification report
+
+**Phase 2b: Contract Grouping (Cell 3-4)**
+- Implement party name extraction
+- Implement fuzzy matching for grouping
+- Generate grouping report
+
+**Phase 2c: Relationship Mapping (Cell 5-6)**
+- Implement reference ID extraction
+- Implement relationship mapper
+- Generate relationship map
+
+**Phase 2d: Contract Type Determination (Cell 7-8)**
+- Implement contract type classifier
+- Implement mandatory document validator
+- Generate validation report
+
+**Phase 2e: Metadata Extraction (Cell 9-10)**
+- Implement metadata extractors for each doc type
+- Consolidate into unified records
+- Generate metadata JSON
+
+### Success Criteria
+
+✓ All documents in demo_contracts/ classified correctly  
+✓ Documents grouped by vendor/party  
+✓ Document relationships mapped  
+✓ Contract types identified (service vs goods)  
+✓ Mandatory documents validated  
+✓ Key metadata extracted  
+✓ Comprehensive report generated  
+✓ Ready for Phase 3 (Rule Extraction)
 
 ---
 
