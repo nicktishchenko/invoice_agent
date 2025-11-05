@@ -758,10 +758,22 @@ Cell N: class ContractRelationshipDiscoverer
 
 ### Path Configuration
 ```python
+# ONLY hardcode the root docs folder
+# Content-first discovery: scan ALL documents recursively in docs/
+# Do NOT hardcode subdirectory paths (contracts_dir, invoices_dir)
+# The system discovers document types FROM CONTENT, not from folder structure
+
 DOCS_DIR = Path("docs")
-CONTRACTS_DIR = DOCS_DIR / "demo_contracts"
-INVOICES_DIR = DOCS_DIR / "demo_invoices"
+# Recursively scan: DOCS_DIR.glob("**/*")
+# Types detected from content, not folder placement
 ```
+
+### Discovery Process (Content-First)
+1. Scan all files recursively in `docs/` (no folder assumptions)
+2. For each file: Component 1 detects document type(s) from content
+3. For each type: Component 2 extracts ID(s) from content
+4. For all documents: Component 3A groups by cross-references
+5. For invoices: Component 3B matches to agreement groups
 
 ### Testing Strategy
 1. Test Component 1 on 1 file (MSA) → Verify all 3 types detected
