@@ -52,3 +52,17 @@ logs/
 *.temp
 temp/
 tmp/
+test_multi_contract.py
+test_invoice_processing.py
+script.py
+phase_a_results.json
+invoice_processing_results.json
+HARDCODED_VALUES_REPORT.md
+extracted_rules.json
+exported-assets.zip
+extracted_rules.json
+Demo_Invoice_Processing_Agent v2.ipynb
+Demo_Invoice_Processing_Agent v3.ipynb
+Demo_Invoice_Processing_Agent_1.ipynb
+Demo_Invoice_Processing_Agent v2.ipynb
+Demo_Invoice_Processing_Agent v3.ipynb

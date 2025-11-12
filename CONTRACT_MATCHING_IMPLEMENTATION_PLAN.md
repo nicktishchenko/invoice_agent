@@ -85,21 +85,39 @@ Ensure that each invoice is validated using rules extracted from its specific so
 
 1. **PO Number Matching** (Confidence: 0.95)
    - Extract PO number from invoice
-   - Search contract documents for matching PO references
-   - Match if PO found in contract documents
+   - Search contract CONTENT (not filenames) for matching PO references
+   - Match if PO found in contract document content
+   - Note: Requires parsing contract documents to search content
 
-2. **Vendor/Party Matching** (Confidence: 0.85)
+2. **Vendor + Program Code Matching** (Confidence: 0.85)
+   - Extract vendor name from invoice
+   - Extract program code from invoice (raw_text)
+   - Match if BOTH vendor matches contract party AND program code matches
+   - This handles cases where same parties have multiple contracts
+
+3. **Vendor + Date Range Matching** (Confidence: 0.80)
+   - Extract vendor name from invoice
+   - Extract invoice date
+   - Match if vendor matches contract party AND invoice date is within contract date range
+   - Requires contract date range information (extract from contract documents or metadata)
+   - Date ranges are helpful for distinguishing multiple contracts between same parties
+
+4. **Program Code Matching** (Confidence: 0.70)
+   - Extract program codes from invoice description/raw_text
+   - Match if program code matches contract's program_code
+   - Lower confidence because program codes can be ambiguous
+
+5. **Vendor Only Matching** (Confidence: 0.60)
    - Extract vendor name from invoice
    - Match if vendor matches any party in contract
-   - Check invoice date is within contract date range
+   - LOWEST confidence - only used if no other matches found
+   - Will likely result in AMBIGUOUS status if multiple contracts share same parties
 
-3. **Program Code Matching** (Confidence: 0.70)
-   - Extract program codes from invoice description
-   - Match if program code matches contract's program_code
-
-4. **Fallback: Default Contract** (Confidence: 0.50)
-   - If no match found, use first contract or most recent contract
-   - Log warning about unmatched invoice
+6. **No Fallback - Manual Review Required**
+   - If no match found, status = "UNMATCHED"
+   - Invoice cannot be processed automatically
+   - Requires manual contract assignment
+   - Log clear warning about unmatched invoice
 
 **New Class: `InvoiceContractMatcher`**
 
@@ -107,6 +125,14 @@ Ensure that each invoice is validated using rules extracted from its specific so
 class InvoiceContractMatcher:
     """
     Matches invoices to their source contracts using multiple detection methods.
+    
+    Matching priority (stops at first successful match):
+    1. PO Number (confidence: 0.95)
+    2. Vendor + Program Code (confidence: 0.85)
+    3. Vendor + Date Range (confidence: 0.80)
+    4. Program Code only (confidence: 0.70)
+    5. Vendor only (confidence: 0.60) - last resort, may be ambiguous
+    6. No match → UNMATCHED status (requires manual review)
     """
     
     def __init__(self, contracts_data: Dict):
@@ -115,7 +141,7 @@ class InvoiceContractMatcher:
             contracts_data: Dict with 'contracts' list (from extracted_rules.json)
         """
         self.contracts = contracts_data.get("contracts", [])
-        self.contract_metadata = self._build_contract_index()
+        self.contract_index = self._build_contract_index()
     
     def match_invoice_to_contract(self, invoice_data: Dict) -> Dict:
         """
@@ -123,32 +149,220 @@ class InvoiceContractMatcher:
         
         Returns:
             {
-                "contract_id": "...",
-                "contract_path": "...",
-                "match_method": "PO_NUMBER|VENDOR|PROGRAM_CODE|FALLBACK",
+                "contract_id": "..." or None,
+                "contract_path": "..." or None,
+                "match_method": "PO_NUMBER|VENDOR_PROGRAM|VENDOR_DATE|PROGRAM_CODE|VENDOR_ONLY|UNMATCHED",
                 "confidence": 0.0-1.0,
                 "status": "MATCHED|AMBIGUOUS|UNMATCHED",
                 "matching_details": {...}
             }
         """
-        # Try matching methods in priority order
-        # Return best match or fallback
+        matches = []
+        
+        # 1. Try PO number matching (highest priority, unique identifier)
+        po_matches = self._match_by_po_number(invoice_data)
+        if po_matches:
+            matches.extend(po_matches)
+        
+        # 2. Try vendor + program code (if no PO match)
+        if not matches:
+            vendor_program_matches = self._match_by_vendor_and_program(invoice_data)
+            if vendor_program_matches:
+                matches.extend(vendor_program_matches)
+        
+        # 3. Try vendor + date range (if no previous matches)
+        if not matches:
+            vendor_date_matches = self._match_by_vendor_and_date(invoice_data)
+            if vendor_date_matches:
+                matches.extend(vendor_date_matches)
+        
+        # 4. Try program code only (if no previous matches)
+        if not matches:
+            program_matches = self._match_by_program_code(invoice_data)
+            if program_matches:
+                matches.extend(program_matches)
+        
+        # 5. Try vendor only (last resort, lowest confidence)
+        if not matches:
+            vendor_matches = self._match_by_vendor_only(invoice_data)
+            if vendor_matches:
+                matches.extend(vendor_matches)
+        
+        # Build result
+        result = {
+            "contract_id": None,
+            "contract_path": None,
+            "match_method": None,
+            "confidence": 0.0,
+            "status": "UNMATCHED",
+            "matching_details": {},
+            "alternative_matches": [],
+        }
+        
+        if len(matches) == 1:
+            # Unique match
+            contract_id, method, confidence = matches[0]
+            contract_info = self.contract_index.get(contract_id, {})
+            result["contract_id"] = contract_id
+            result["contract_path"] = contract_info.get("contract_path", "")
+            result["match_method"] = method
+            result["confidence"] = confidence
+            result["status"] = "MATCHED"
+            result["matching_details"] = self._get_matching_details(invoice_data, contract_id)
+        
+        elif len(matches) > 1:
+            # Multiple matches - ambiguous
+            contract_id, method, confidence = matches[0]
+            contract_info = self.contract_index.get(contract_id, {})
+            result["contract_id"] = contract_id
+            result["contract_path"] = contract_info.get("contract_path", "")
+            result["match_method"] = method
+            result["confidence"] = confidence
+            result["status"] = "AMBIGUOUS"
+            result["alternative_matches"] = [
+                {"contract_id": m[0], "method": m[1], "confidence": m[2]}
+                for m in matches[1:]
+            ]
+            result["matching_details"] = self._get_matching_details(invoice_data, contract_id)
+        
+        else:
+            # No match - UNMATCHED (no fallback)
+            result["status"] = "UNMATCHED"
+            result["matching_details"] = {
+                "reason": "No matching contract found. Manual review required.",
+                "invoice_po": invoice_data.get("po_number"),
+                "invoice_vendor": invoice_data.get("vendor_name"),
+                "invoice_date": str(invoice_data.get("invoice_date")) if invoice_data.get("invoice_date") else None,
+            }
+        
+        return result
+    
+    def _match_by_po_number(self, invoice_data: Dict) -> List[Tuple[str, str, float]]:
+        """
+        Match by PO number - searches contract CONTENT (not filenames).
+        
+        Requires parsing contract documents to search for PO references in content.
+        """
+        invoice_po = invoice_data.get("po_number")
+        if not invoice_po:
+            return []
+        
+        matches = []
+        invoice_po_upper = invoice_po.upper()
+        
+        # Parse each contract and search content for PO number
+        for contract in self.contracts:
+            contract_id = contract.get("contract_id", "UNKNOWN")
+            contract_path = contract.get("contract_path", "")
+            
+            if not contract_path:
+                continue
+            
+            # Parse contract document to get text content
+            contract_text = self._parse_contract_content(contract_path)
+            
+            # Search for PO number in contract content
+            if invoice_po_upper in contract_text.upper():
+                matches.append((contract_id, "PO_NUMBER", 0.95))
+        
+        return matches
+    
+    def _parse_contract_content(self, contract_path: str) -> str:
+        """
+        Parse contract document and extract text content.
+        Reuses parsing logic from InvoiceRuleExtractorAgent.
+        """
+        # Implementation: Use pdfplumber for PDF, python-docx for DOCX
+        # This method will be called during matching
         pass
     
-    def _match_by_po_number(self, invoice_data: Dict) -> List[Tuple[str, float]]:
-        """Match by PO number"""
+    def _match_by_vendor_and_program(self, invoice_data: Dict) -> List[Tuple[str, str, float]]:
+        """Match by vendor AND program code - handles multiple contracts between same parties"""
         pass
     
-    def _match_by_vendor(self, invoice_data: Dict) -> List[Tuple[str, float]]:
-        """Match by vendor/party name"""
+    def _match_by_vendor_and_date(self, invoice_data: Dict) -> List[Tuple[str, str, float]]:
+        """
+        Match by vendor AND date range - requires contract date range info.
+        
+        Checks if:
+        1. Vendor matches contract party
+        2. Invoice date falls within contract date range
+        """
+        invoice_vendor = invoice_data.get("vendor_name", "").lower()
+        invoice_date = invoice_data.get("invoice_date")
+        
+        if not invoice_vendor or not invoice_date:
+            return []
+        
+        matches = []
+        
+        for contract_id, contract_info in self.contract_index.items():
+            # Check vendor match
+            parties = contract_info.get("parties", [])
+            vendor_matches = any(
+                party in invoice_vendor or invoice_vendor in party
+                for party in parties
+            )
+            
+            if not vendor_matches:
+                continue
+            
+            # Check date range
+            date_range = contract_info.get("date_range")
+            if date_range and self._date_in_range(invoice_date, date_range):
+                matches.append((contract_id, "VENDOR_DATE", 0.80))
+        
+        return matches
+    
+    def _date_in_range(self, date: datetime, date_range: Dict) -> bool:
+        """Check if date falls within contract date range."""
+        start_date = date_range.get("start")
+        end_date = date_range.get("end")
+        
+        if not start_date or not end_date:
+            return False
+        
+        # Parse dates if strings
+        if isinstance(start_date, str):
+            start_date = datetime.fromisoformat(start_date.split("T")[0])
+        if isinstance(end_date, str):
+            end_date = datetime.fromisoformat(end_date.split("T")[0])
+        
+        return start_date <= date <= end_date
+    
+    def _match_by_program_code(self, invoice_data: Dict) -> List[Tuple[str, str, float]]:
+        """Match by program code only"""
         pass
     
-    def _match_by_program_code(self, invoice_data: Dict) -> List[Tuple[str, float]]:
-        """Match by program code"""
+    def _match_by_vendor_only(self, invoice_data: Dict) -> List[Tuple[str, str, float]]:
+        """Match by vendor only - last resort, low confidence"""
         pass
     
     def _build_contract_index(self) -> Dict:
-        """Build searchable index of contract metadata"""
+        """
+        Build searchable index of contract metadata.
+        
+        Includes:
+        - contract_id
+        - contract_path
+        - parties (normalized, lowercase)
+        - program_code (uppercase)
+        - date_range (start, end dates)
+        """
+        index = {}
+        for contract in self.contracts:
+            contract_id = contract.get("contract_id", "UNKNOWN")
+            index[contract_id] = {
+                "contract_id": contract_id,
+                "contract_path": contract.get("contract_path", ""),
+                "parties": [p.lower() for p in contract.get("parties", [])],
+                "program_code": contract.get("program_code", "").upper(),
+                "date_range": contract.get("date_range"),  # {"start": "...", "end": "..."}
+            }
+        return index
+    
+    def _get_matching_details(self, invoice_data: Dict, contract_id: str) -> Dict:
+        """Get details of why invoice matched this contract"""
         pass
 ```
 
@@ -188,13 +402,33 @@ def process_invoice(self, invoice_path: str) -> Dict[str, Any]:
     # 2. Match invoice to contract
     match_result = self.matcher.match_invoice_to_contract(invoice_data)
     
-    # 3. Load rules for matched contract
+    # 3. Check if contract was matched
+    if match_result["status"] == "UNMATCHED":
+        # Cannot process without contract match
+        return {
+            "invoice_file": invoice_data["file"],
+            "status": "ERROR",
+            "action": "Manual review required - no contract match found",
+            "issues": ["Invoice could not be matched to any contract. Manual assignment required."],
+            "warnings": [],
+            "contract_match": match_result,
+            "validation_timestamp": datetime.now().isoformat(),
+        }
+    
+    # 4. Load rules for matched contract
+    if match_result["status"] == "AMBIGUOUS":
+        # Log warning but proceed with first match
+        logger.warning(
+            f"Ambiguous contract match for invoice {invoice_data['file']}. "
+            f"Using contract {match_result['contract_id']} (confidence: {match_result['confidence']})"
+        )
+    
     self._load_contract_rules(match_result["contract_id"])
     
-    # 4. Validate using contract-specific rules
+    # 5. Validate using contract-specific rules
     result = self.validate_invoice(invoice_data)
     
-    # 5. Add contract match info to result
+    # 6. Add contract match info to result
     result["contract_match"] = match_result
     
     return result
@@ -209,12 +443,9 @@ def _load_contract_rules(self, contract_id: str):
             logger.info(f"Loaded {len(self.current_rules)} rules for contract {contract_id}")
             return
     
-    # Fallback: use first contract or empty rules
-    logger.warning(f"Contract {contract_id} not found, using fallback")
-    if self.rules_data.get("contracts"):
-        self.current_rules = self.rules_data["contracts"][0]["rules"]
-    else:
-        self.current_rules = []
+    # Should not happen if matching worked correctly
+    logger.error(f"Contract {contract_id} not found in rules data")
+    raise ValueError(f"Contract {contract_id} not found. Cannot load rules.")
 ```
 
 **Option B: Per-Contract Processor Instances**
@@ -259,12 +490,21 @@ for contract_path in contract_files:
     # Extract rules for this contract
     rules = rag_agent.run(str(contract_path))
     
-    # Generate contract_id from filename or parties
-    contract_id = self._generate_contract_id(contract_path, rules)
+    # Parse contract to extract metadata (parties, dates, program codes)
+    contract_text = rag_agent.parse_document(str(contract_path))
+    parties = extract_parties(contract_text)  # Extract party names
+    date_range = extract_date_range(contract_text)  # Extract contract date range
+    program_code = extract_program_code(contract_text)  # Extract program code
+    
+    # Generate contract_id from parties and program code
+    contract_id = generate_contract_id(parties, program_code)
     
     contract_data = {
         "contract_id": contract_id,
         "contract_path": str(contract_path),
+        "parties": parties,
+        "program_code": program_code,
+        "date_range": date_range,  # {"start": "YYYY-MM-DD", "end": "YYYY-MM-DD"}
         "extracted_at": datetime.now().isoformat(),
         "rules": rules
     }

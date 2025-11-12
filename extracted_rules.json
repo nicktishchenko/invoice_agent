@@ -1,79 +1,179 @@
-[
-  {
-    "rule_id": "payment_terms",
-    "type": "payment_term",
-    "description": "The payment terms are:\n\n*   **Net days:** 30 days from the receipt of the invoice issued in accordance with the Agreement.\n*   **PO requirements:**  The invoice must be sent to BAYER or its Affiliate, as applicable.\n*   **Payment terms:**  BAYER shall pay invoiced amounts within 30 days of the invoice issued in accordance with the Agreement, except for any disputed amounts.",
-    "priority": "high",
-    "confidence": "medium"
-  },
-  {
-    "rule_id": "approval_process",
-    "type": "approval",
-    "description": "The invoice approval process is a process where a party (BAYER) issues a PO with a unique number of invoices, and the other party (R4) confirms the invoice's validity and the amount due.",
-    "priority": "medium",
-    "confidence": "medium"
-  },
-  {
-    "rule_id": "submission_requirements",
-    "type": "submission",
-    "description": "Invoice processing rules are:\n*   Invoices must include a copy of the original receipt or invoice from the third party to r4 and, if the Services are being charged on a time and materials basis, copies of the relevant timesheets.\n*   BAYER shall issue a PO with a unique POnumberaswellasstatingtheaddressto\n    These are:\n    *   Applicable PO number\n    *    Agreed payment term\n    *   Source document",
-    "priority": "medium",
-    "confidence": "medium"
-  },
-  {
-    "rule_id": "dispute_resolution",
-    "type": "dispute",
-    "description": "The dispute resolution process is to settle the agreement by the competent courts of the country in which Bayer is incorporated.",
-    "priority": "medium",
-    "confidence": "medium"
-  },
-  {
-    "rule_id": "tax_handling",
-    "type": "tax",
-    "description": "The invoice processing rules are as follows:\n\n*   **Taxation:** Payee pays the withholding tax separately.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **Taxation:** Payee pays the withholding tax to the tax authorities.\n*   **",
-    "priority": "medium",
-    "confidence": "medium"
-  },
-  {
-    "rule_id": "currency_requirements",
-    "type": "currency",
-    "description": "The currency requirements are specified as:\n\n*   **Currency:** USD\n*   **Currency Code:** (e.g., EUR)",
-    "priority": "low",
-    "confidence": "medium"
-  },
-  {
-    "rule_id": "invoice_format",
-    "type": "format",
-    "description": "Invoice format: PO/SOW or OrderForm\nKey details:\n*   PO number\n*   Agreement number\n*   Payment term\n*   Source document title(s)\n*   Name of requester(s)\n*   Provided Services\n*   Correct address of the Service Provider, which is mentioned on the respective PO.",
-    "priority": "low",
-    "confidence": "medium"
-  },
-  {
-    "rule_id": "supporting_documents",
-    "type": "documents",
-    "description": "The required supporting documents are:\n*   A paper copy of any record provided or made available\n*   An e-mail to alexander.gossrau@bayer.com\n*   A receipt for the electronic signing system\n*   A copy of the electronic signing system\n*   A copy of the electronic signing system\n*   A copy of the electronic signing system",
-    "priority": "medium",
-    "confidence": "medium"
-  },
-  {
-    "rule_id": "delivery_terms",
-    "type": "delivery",
-    "description": "1.  The agreement will begin upon signature and/or an equivalent local act under Applicable Laws by both Parties.\n2.  The agreement will automatically renew for successive periods of 12 months unless terminated by one of the parties with 3.00 months' priorwrittennoticetotheendof the initial period or any successive period.",
-    "priority": "medium",
-    "confidence": "medium"
-  },
-  {
-    "rule_id": "warranty_terms",
-    "type": "warranty",
-    "description": "The contract specifies that the agreement will provide services in a good and workmanlike manner, but it does not specify any warranties or guarantees.",
-    "priority": "low",
-    "confidence": "medium"
-  },
-  {
-    "rule_id": "rejection_criteria",
-    "type": "rejection",
-    "description": "Invoice rejection criteria are:\n*   **Time and Materials Basis:** The invoice must be issued in accordance with the agreed-upon time and materials basis.\n*   **Copies of Relevant Timesheets:** The invoice must include copies of the relevant timesheets.\n*   **Specific PO Number:** The invoice must be issued to the correct PO number.\n*   ** Agreed Payment Term:** The invoice must be paid in accordance with the agreed-upon payment term.\n*   **Source",
-    "priority": "high",
-    "confidence": "medium"
-  }
-]
+{
+  "extracted_at": "2025-11-07T00:07:35.307999",
+  "contracts": [
+    {
+      "contract_id": "CONTRACT_CONTRACT_TECHVENDOR_BCH_2022",
+      "contract_path": "docs/contracts/contract_techvendor_bch_2022.pdf",
+      "parties": [
+        "GlobalCorp Inc."
+      ],
+      "program_code": "BCH",
+      "date_range": {
+        "start": "2022-01-01",
+        "end": "2024-12-31"
+      },
+      "extracted_at": "2025-11-07T00:07:37.484080",
+      "rules": [
+        {
+          "rule_id": "payment_terms",
+          "type": "payment_term",
+          "description": "Here's the extracted invoice processing rules:\n\n*   **PO NUMBER:** PO-2022-5678\n*   **Detailed Description:** All services under this agreement require a Purchase Order. The primary PO for this contract is PO-2022-5678.\n*   **Invoice Submission Requirements:** All invoices must include:\n    *   Valid PO number (format: PO-YYYY-####)\n    *   Detailed description of",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "approval_process",
+          "type": "approval",
+          "description": "The invoice approval process is based on the Purchase Order (PO) number and the client's approval.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "late_penalties",
+          "type": "penalty",
+          "description": "Here's the extracted invoice processing rules:\n\n*   **PO NUMBER:** PO-2022-5678\n*   **Detailed Description:** All services under this agreement require a Purchase Order. The primary PO for this contract is PO-2022-5678.\n*   **Invoice Submission Requirements:** All invoices must include:\n    *   Valid PO number (format: PO-YYYY-####)\n    *   Detailed description of",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "submission_requirements",
+          "type": "submission",
+          "description": "Here's the extracted invoice processing rules:\n\n*   **PO NUMBER:** PO-2022-5678\n*   **Detailed Description:** Services require a Purchase Order.\n*   **Invoice Date and Due Date:** January 1, 2022, and January 1, 2023\n*   **Vendor Tax Identification Number:** Valid PO number\n*   **INVOICE APPROVAL PROCESS:** All invoices must be approved by",
+          "priority": "medium",
+          "confidence": "medium"
+        }
+      ]
+    },
+    {
+      "contract_id": "CONTRACT_SAMPLE_CONTRACT_NET30",
+      "contract_path": "docs/contracts/sample_contract_net30.pdf",
+      "parties": [
+        "ABC Corporation",
+        "XYZ Services Inc."
+      ],
+      "program_code": "",
+      "date_range": {
+        "start": "2025-01-01",
+        "end": "2027-12-31"
+      },
+      "extracted_at": "2025-11-07T00:07:38.984972",
+      "rules": [
+        {
+          "rule_id": "payment_terms",
+          "type": "payment_term",
+          "description": "The payment terms are Net 30 days from invoice date and in monthly installments.",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "approval_process",
+          "type": "approval",
+          "description": "The invoice approval process is to approve invoices by the Project Manager.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "late_penalties",
+          "type": "penalty",
+          "description": "The late payment penalty is 1.5% per month on overdue balance.",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "submission_requirements",
+          "type": "submission",
+          "description": "The invoice processing rules are:\n\n*   All invoices must include:\n    *   Valid PO number (format: PO-YYYY-####)\n    *   Detailed description of services\n    *   Invoice date and due date\n    *   Vendor tax identification number\n*   Invoices must be approved by the Project Manager\n*   Approval required within 5 business days\n*   Finance department will process payment after approval\n*   Penalties and fees\n*   Late",
+          "priority": "medium",
+          "confidence": "medium"
+        }
+      ]
+    },
+    {
+      "contract_id": "CONTRACT_CONTRACT_ACME_2024",
+      "contract_path": "docs/contracts/contract_acme_2024.docx",
+      "parties": [
+        "Client Inc."
+      ],
+      "program_code": "ACME",
+      "date_range": {
+        "start": "2024-01-01",
+        "end": "2025-12-31"
+      },
+      "extracted_at": "2025-11-07T00:07:41.087317",
+      "rules": [
+        {
+          "rule_id": "payment_terms",
+          "type": "payment_term",
+          "description": "The payment terms are Net 60 days from invoice date and in monthly installments.",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "approval_process",
+          "type": "approval",
+          "description": "The invoice approval process is based on the PO number and the date of the invoice.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "late_penalties",
+          "type": "penalty",
+          "description": "Here's the extracted invoice processing rules:\n\n*   **PO NUMBER:** PO-2024-9999\n*   **INVOICE SUBMISSION REQUIREMENTS:** All invoices must include:\n    *   Valid PO number (format: PO-YYYY-####)\n    *   Detailed description of services\n    *   Invoice date and due date\n    *   Vendor tax identification number\n*   **INVOICE APPROVAL PROCESS:** All invoices must be",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "submission_requirements",
+          "type": "submission",
+          "description": "Here's the extracted invoice processing rules:\n\n*   **PO NUMBER:** PO-2024-9999\n*   **INVOICE SUBMISSION REQUIREMENTS:** All invoices must include:\n    *   Valid PO number (format: PO-YYYY-####)\n    *   Detailed description of services\n    *   Invoice date and due date\n    *   Vendor tax identification number\n*   **INVOICE APPROVAL PROCESS:** All invoices must be",
+          "priority": "medium",
+          "confidence": "medium"
+        }
+      ]
+    },
+    {
+      "contract_id": "CONTRACT_SAMPLE_CONTRACT_NET60",
+      "contract_path": "docs/contracts/sample_contract_net60.docx",
+      "parties": [
+        "ABC Corporation",
+        "XYZ Services Inc."
+      ],
+      "program_code": "DOCX",
+      "date_range": {
+        "start": "2025-01-01",
+        "end": "2027-12-31"
+      },
+      "extracted_at": "2025-11-07T00:07:42.626384",
+      "rules": [
+        {
+          "rule_id": "payment_terms",
+          "type": "payment_term",
+          "description": "The payment terms are Net 60 days from invoice date, and invoices must include a valid Purchase Order (PO) number.",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "approval_process",
+          "type": "approval",
+          "description": "The invoice approval process is to approve invoices by the Project Manager.",
+          "priority": "medium",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "late_penalties",
+          "type": "penalty",
+          "description": "The late payment penalty is 1.5% per month on overdue balance.",
+          "priority": "high",
+          "confidence": "medium"
+        },
+        {
+          "rule_id": "submission_requirements",
+          "type": "submission",
+          "description": "The invoice processing rules are:\n\n*   All invoices must include:\n    *   Valid PO number (format: PO-YYYY-####)\n    *   Detailed description of services\n    *   Invoice date and due date\n    *   Vendor tax identification number\n*   Invoices must be approved by the Project Manager\n*   Approval required within 5 business days\n*   Finance department will process payment after approval\n*   Penalties and fees\n*   Late",
+          "priority": "medium",
+          "confidence": "medium"
+        }
+      ]
+    }
+  ]
+}
